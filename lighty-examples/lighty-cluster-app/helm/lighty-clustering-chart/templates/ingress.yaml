@@ -1,0 +1,20 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: {{ include "lighty-clustering-chart.fullname" . }}
+spec:
+  rules:
+    - host: {{ .Values.ingress.restconfHost }}
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: {{ include "lighty-clustering-chart.fullname" . }}
+              servicePort: 8888
+    - host: {{ .Values.ingress.managementHost }}
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: {{ include "lighty-clustering-chart.fullname" . }}
+              servicePort: 8558
